@@ -1,0 +1,27 @@
+version: "3.3"
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    hostname: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+      - telegram/.development.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/script:/docker-entrypoint-initdb.d
+
+  telegram:
+    container_name: telegram
+    hostname: telegram
+    build:
+      context: telegram
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
