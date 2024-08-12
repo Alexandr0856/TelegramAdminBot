@@ -7,6 +7,7 @@ load_dotenv(f".{environ.get('ENV', 'development')}.env")
 class TgKey:
     TOKEN: str = environ.get("TOKEN")
     CHANNEL_ID: int = int(environ.get("CHANNEL_ID"))
+    MEDIA_CHAT_ID: int = int(environ.get("MEDIA_CHAT_ID"))
     MIN_DELAY: int = int(environ.get("MIN_DELAY", 10))
     MAX_DELAY: int = int(environ.get("MAX_DELAY", 60))
 

@@ -9,7 +9,7 @@ services:
     ports:
       - "5432:5432"
     env_file:
-      - telegram/.development.env
+      - telegram/.production.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./postgres/script:/docker-entrypoint-initdb.d
@@ -18,7 +18,7 @@ services:
     container_name: telegram
     hostname: telegram
     build:
-      context: telegram
+      context: .
       dockerfile: Dockerfile
     depends_on:
       - postgres
