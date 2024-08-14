@@ -2,14 +2,16 @@ import asyncio
 import contextlib
 
 from aiogram import Bot
-
+from aiohttp import ClientSession, ClientTimeout
 from misc.env import TgKey
 from dispatcher import get_dispatcher
 
 
 async def start_bot():
     dp = get_dispatcher()
-    bot = Bot(token=TgKey.TOKEN)
+
+    session = ClientSession(timeout=ClientTimeout(total=60))
+    bot = Bot(token=TgKey.TOKEN, session=session)
 
     await dp.start_polling(bot)
 
