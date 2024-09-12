@@ -1,0 +1,5 @@
+msgid "main_text"
+msgstr "НАПИСАТЬ"
+
+msgid "main_url"
+msgstr "https://t.me/DiyarArbitrage"
