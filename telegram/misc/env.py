@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv(f".{environ.get('ENV', 'development')}.env")
 
 
-class TgKey:
+class TelegramEnv:
     TOKEN: str = environ.get("TOKEN")
     CHANNEL_ID: int = int(environ.get("CHANNEL_ID"))
     MEDIA_CHAT_ID: int = int(environ.get("MEDIA_CHAT_ID"))
@@ -20,3 +20,8 @@ class PostgresEnv:
     PORT: int = int(environ.get("POSTGRES_PORT"))
     PASSWORD: str = environ.get("POSTGRES_PASSWORD")
     DB_NAME: str = environ.get("POSTGRES_DB")
+
+
+class AssetsEnv:
+    ASSETS_DIR: str = environ.get("ASSETS_DIR", "assets")
+    WELCOME_PHOTO: str = environ.get("WELCOME_PHOTO", "welcome.png")

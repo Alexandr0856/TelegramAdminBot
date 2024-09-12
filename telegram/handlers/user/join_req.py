@@ -4,7 +4,7 @@ import asyncio
 from aiogram import Bot
 from aiogram.types import ChatJoinRequest
 
-from misc.env import TgKey
+from misc.env import TelegramEnv
 from misc import logger, Pg
 from misc.assets import get_file_id
 from keyboards import get_welcome_keyboard
@@ -26,10 +26,10 @@ async def approve_request(chat_join: ChatJoinRequest, bot: Bot, pg: Pg):
 
     pg.commit()
 
-    delay = random.randint(TgKey.MIN_DELAY, TgKey.MAX_DELAY)
+    delay = random.randint(TelegramEnv.MIN_DELAY, TelegramEnv.MAX_DELAY)
     await asyncio.sleep(delay)
 
-    for attempt in range(retries := TgKey.RETRIES):
+    for attempt in range(retries := TelegramEnv.RETRIES):
         try:
             member = await bot.get_chat_member(chat_id, user_id)
 
@@ -61,7 +61,7 @@ async def approve_request(chat_join: ChatJoinRequest, bot: Bot, pg: Pg):
 
             if attempt == retries - 1:
                 logger.error(f"Error in {attempt} attempt approve_request: {e}")
-                await asyncio.sleep(TgKey.RETRIES_DELAY)
+                await asyncio.sleep(TelegramEnv.RETRIES_DELAY)
             else:
                 logger.error(f"Error finale can't approve user {username}[{user_id}]: {e}")
                 raise e

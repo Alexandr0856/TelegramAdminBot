@@ -3,6 +3,7 @@ from aiogram.types import Message
 
 from misc import Pg
 from misc import logger
+from misc.env import AssetsEnv
 from misc.assets import get_file_id
 from keyboards import get_welcome_keyboard
 from locales import get_message_text
@@ -27,7 +28,7 @@ async def start_handler(message: Message, bot: Bot, pg: Pg) -> None:
 
         logger.info(f"User {username}[{user_id}] started the bot")
 
-        file_id = await get_file_id(bot, "diyar.png")
+        file_id = await get_file_id(bot, AssetsEnv.WELCOME_PHOTO)
         await bot.send_photo(
             chat_id=message.from_user.id,
             photo=file_id,
