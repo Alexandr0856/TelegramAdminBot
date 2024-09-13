@@ -2,7 +2,6 @@ import asyncio
 import contextlib
 
 from aiogram import Bot
-from aiohttp import AiohttpSession, ClientTimeout
 from misc.env import TelegramEnv
 from dispatcher import get_dispatcher
 
