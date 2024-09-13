@@ -4,11 +4,11 @@ import asyncio
 from aiogram import Bot
 from aiogram.types import ChatJoinRequest
 
-from misc.env import TelegramEnv
 from misc import logger, Pg
 from misc.assets import get_file_id
-from keyboards import get_welcome_keyboard
 from locales import get_message_text
+from keyboards import get_welcome_keyboard
+from misc.env import TelegramEnv, AssetsEnv
 
 
 async def approve_request(chat_join: ChatJoinRequest, bot: Bot, pg: Pg):
@@ -43,7 +43,7 @@ async def approve_request(chat_join: ChatJoinRequest, bot: Bot, pg: Pg):
                 logger.error(f"User {username}[{user_id}] not approved in {attempt} attempt")
                 continue
 
-            file_id = await get_file_id(bot, "diyar.png")
+            file_id = await get_file_id(bot, AssetsEnv.WELCOME_PHOTO)
 
             await bot.send_photo(
                 chat_id=chat_join.from_user.id,
