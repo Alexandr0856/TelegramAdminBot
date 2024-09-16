@@ -34,6 +34,7 @@ class DatabaseMiddleware(BaseMiddleware):
         connection = self.conn_pool.getconn()
         data['pg'] = Pg(connection)
 
-        await handler(event, data)
-
-        self.conn_pool.putconn(connection)
+        try:
+            await handler(event, data)
+        finally:
+            self.conn_pool.putconn(connection)
