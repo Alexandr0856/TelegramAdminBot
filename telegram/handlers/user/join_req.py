@@ -46,12 +46,19 @@ async def approve_request(chat_join: ChatJoinRequest, bot: Bot, pg: Pg):
 
             logger.info(f"User {username}[{user_id}] approved in {attempt} attempt")
 
-            file_id = await get_file_id(bot, AssetsEnv.WELCOME_PHOTO)
+            # file_id = await get_file_id(bot, AssetsEnv.WELCOME_PHOTO)
+            #
+            # await bot.send_photo(
+            #     chat_id=chat_join.from_user.id,
+            #     photo=file_id,
+            #     caption=get_message_text("welcome", "ru"),
+            #     parse_mode="MarkdownV2",
+            #     reply_markup=get_welcome_keyboard()
+            # )
 
-            await bot.send_photo(
+            await bot.send_message(
                 chat_id=chat_join.from_user.id,
-                photo=file_id,
-                caption=get_message_text("welcome", "ru"),
+                text=get_message_text("welcome", "ru"),
                 parse_mode="MarkdownV2",
                 reply_markup=get_welcome_keyboard()
             )
