@@ -3,6 +3,7 @@ import asyncio
 
 from aiogram import Bot
 from aiogram.types import ChatJoinRequest
+# from aiogram.exceptions import
 
 from misc import logger, Pg
 from misc.assets import get_file_id
@@ -43,6 +44,8 @@ async def approve_request(chat_join: ChatJoinRequest, bot: Bot, pg: Pg):
                 logger.error(f"User {username}[{user_id}] not approved in {attempt} attempt")
                 continue
 
+            logger.info(f"User {username}[{user_id}] approved in {attempt} attempt")
+
             file_id = await get_file_id(bot, AssetsEnv.WELCOME_PHOTO)
 
             await bot.send_photo(
@@ -52,7 +55,7 @@ async def approve_request(chat_join: ChatJoinRequest, bot: Bot, pg: Pg):
                 parse_mode="MarkdownV2",
                 reply_markup=get_welcome_keyboard()
             )
-            logger.info(f"User {username}[{user_id}] approved after {delay} seconds")
+            logger.info(f"User {username}[{user_id}] success received welcome message")
             break
         except Exception as e:
             if "USER_ALREADY_PARTICIPANT" in str(e):
