@@ -1,10 +1,14 @@
 from psycopg2.extensions import connection
 
 
-class Pg:
+class Postgres:
     def __init__(self, conn: connection):
         self.conn = conn
         self.cursor = conn.cursor()
+
+    def ping(self):
+        self.cursor.execute("SELECT 1")
+        self.cursor.fetchone()
 
     def commit(self):
         self.conn.commit()

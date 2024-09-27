@@ -5,14 +5,14 @@ from aiogram import Bot
 from aiogram.types import ChatJoinRequest
 # from aiogram.exceptions import
 
-from misc import logger, Pg
+from misc import logger, Postgres
 from misc.assets import get_file_id
 from locales import get_message_text
 from keyboards import get_welcome_keyboard
 from misc.env import TelegramEnv, AssetsEnv
 
 
-async def approve_request(chat_join: ChatJoinRequest, bot: Bot, pg: Pg):
+async def approve_request(chat_join: ChatJoinRequest, bot: Bot, pg: Postgres):
     chat_id = chat_join.chat.id
     user_id = chat_join.from_user.id
     username = chat_join.from_user.username
@@ -26,6 +26,8 @@ async def approve_request(chat_join: ChatJoinRequest, bot: Bot, pg: Pg):
     )
 
     pg.commit()
+
+    logger.info(f"User {username}[{user_id}] added to the database")
 
     delay = random.randint(TelegramEnv.MIN_DELAY, TelegramEnv.MAX_DELAY)
     await asyncio.sleep(delay)

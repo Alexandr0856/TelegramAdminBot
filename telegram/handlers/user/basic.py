@@ -1,7 +1,6 @@
 from aiogram import Bot
 from aiogram.types import Message
 
-from misc import Pg
 from misc import logger
 from misc.env import AssetsEnv
 from misc.assets import get_file_id
@@ -21,7 +20,7 @@ async def help_handler(message: Message, bot: Bot) -> None:
         logger.error(f"Error in help_handler: {e}")
 
 
-async def start_handler(message: Message, bot: Bot, pg: Pg) -> None:
+async def start_handler(message: Message, bot: Bot) -> None:
     try:
         user_id = message.from_user.id
         username = message.from_user.username or f"{message.from_user.first_name} {message.from_user.last_name}"

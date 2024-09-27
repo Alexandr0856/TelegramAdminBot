@@ -5,7 +5,8 @@ from aiogram.types import Message
 from psycopg2 import pool as pg_pool
 
 from misc.env import PostgresEnv
-from misc.pg_utils import Pg
+from misc.pg_utils import Postgres
+from misc.logger_conf import logger
 
 
 class DatabaseMiddleware(BaseMiddleware):
@@ -32,9 +33,11 @@ class DatabaseMiddleware(BaseMiddleware):
             data: Dict[str, Any]
     ):
         connection = self.conn_pool.getconn()
-        data['pg'] = Pg(connection)
+        data['pg'] = Postgres(connection)
+        logger.info(f"Connected to the database")
 
         try:
+            logger.info(f"Pinged the database: {data['pg'].ping()}")
             await handler(event, data)
         finally:
             self.conn_pool.putconn(connection)
