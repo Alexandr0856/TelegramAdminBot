@@ -1,5 +1,5 @@
 msgid "main_text"
-msgstr "НАПИСАТЬ"
+msgstr "🔥Получить связку🔥"
 
 msgid "main_url"
-msgstr "https://t.me/DiyarArbitrage"
+msgstr "https://t.me/m/DFr656UqMTFi"
